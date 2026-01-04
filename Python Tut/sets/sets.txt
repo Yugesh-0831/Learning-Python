@@ -1,0 +1,73 @@
+1. Set is an unordered collection of unique elements
+2. Set is mutable
+
+4. Set can be used as dictionary keys
+myset = {1, 2, 1}
+print(myset)
+
+# set is unordered
+myset = set("hello")
+print(myset)
+
+5. Set can be used as dictionary keys
+myset.add(3)
+print(myset)
+
+# to remove an element from the set
+myset.discard(3)
+print(myset)
+
+6. Pop removes the first element from the set
+myset.pop()
+print(myset)
+
+for i in myset:
+    print(i)
+
+# sets in python are similar to match sets
+7. union combines two sets
+new_set = myset.union({4, 5})
+print(new_set)
+
+8. intersection returns common elements
+new_set = myset.intersection({4, 5})
+print(new_set)
+
+9. difference returns elements in the first set but not in the second
+new_set = myset.difference({4, 5})
+print(new_set)
+
+10. symmetric_difference returns elements in either set but not both
+new_set = myset.symmetric_difference({4, 5})
+print(new_set)
+
+# above 3 creates a new set but bottom update in place
+
+11. update updates the set with elements from another set
+myset.update({4, 5})
+print(myset)
+
+12. intersection_update updates the set with common elements from another set
+myset.intersection_update({4, 5})
+print(myset)
+
+13. clear removes all elements from the set
+myset.clear()
+print(myset)
+
+14. symmetric_difference_update updates the set with elements from another set but not common elements
+myset.symmetric_difference_update({4, 5})
+print(myset)
+
+15. isSubset checks if one set is a subset of another
+print(myset.issubset({4, 5}))
+
+16. isSuperset checks if one set is a superset of another
+print(myset.issuperset({4, 5}))
+
+17. isdisjoint checks if two sets have no common elements
+print(myset.isdisjoint({4, 5}))
+
+18. frozen set is an immutable version of set
+frozen_set = frozenset({1, 2, 3})
+print(frozen_set)

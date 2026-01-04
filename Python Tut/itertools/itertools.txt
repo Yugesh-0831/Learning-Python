@@ -1,0 +1,61 @@
+# Disn't quite understood this why we use this
+Some efficient way to perform some computations using itertools
+# itertools -> product, permutations, combinations, accumulate, groupby, and infinite iterators
+
+1. returns all possible combinations of elements from the input iterable(permutations of all lengths)
+product
+from itertools import combinations, permutations, product
+
+a = [1, 2, 3, 4]
+b = [3, 4]
+
+prod = product(a, b, repeat=2)
+print(list(prod))
+
+2. returns all possible permutations of elements from the input iterable(fixed length)
+permutations
+perm = permutations(a, 2)
+print(list(perm))
+
+3. returns all possible combinations of elements from the input iterable(fixed length)
+combinations
+comb = combinations(a, 2)
+print(list(comb))
+
+4. same as combinations but with itself as well
+comb_with_replacement = combinations_with_replacement(a, 2)
+print(list(comb_with_replacement))
+
+6. prefix iterations
+acc = accumulate(a)
+print(list(acc))
+
+acc = accumulate(a, func=operator.mul)
+print(list(acc))
+
+acc = accumulate(a, func=max)
+print(list(acc))
+
+7. grouping elements for a logic (key is return value, and values are list of values)
+def smaller_than_3(x):
+    return x < 3
+
+grp = groupby(a, key=lambda x: x < 3)
+print(grp)
+for key, value in grp:
+    print(key, list(value))
+
+infinite iterators
+
+7. starts count from 10
+for i in count(10):
+    print(i)
+
+8. cycle through elements infinitely
+a = [1, 2, 3]
+for i in cycle(a):
+    print(i)
+
+9. repeat elements infinitely
+for i in repeat(10, 3):
+    print(i)

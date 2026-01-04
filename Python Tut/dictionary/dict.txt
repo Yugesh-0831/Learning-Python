@@ -1,0 +1,56 @@
+1. Initializing a dictionary
+mydict = {"name": "John", "age": 30}
+print(mydict)
+
+2. Can also use dict keyword
+mydict = dict(name="John", age=30)
+print(mydict)
+
+value = mydict.get("name")
+print(value)
+
+mydict["email"] = "john@example.com"
+print(mydict)
+
+3. delete keyword to delete an element
+del mydict["email"]
+print(mydict)
+
+4. pop method to delete an element
+mydict.pop("email")
+print(mydict)
+
+5. popitem method to delete last element
+mydict.popitem()
+print(mydict)
+
+6. clear method to delete all elements
+mydict.clear()
+print(mydict)
+
+7. check if key exists before deleting
+if "email" in mydict:
+    del mydict["email"]
+print(mydict)
+
+8. items method to iterate over key-value pairs
+for key, value in mydict.items():
+    print(key, value)
+
+9. keys method to iterate over keys
+for key in mydict.keys():
+    print(key)
+
+10. values method to iterate over values
+for value in mydict.values():
+    print(value)
+
+11. update method to merge two dictionaries
+mydict2 = {"name": "Jane", "age": 25, "email": "jane@example.com"}
+mydict.update(mydict2)
+print(mydict)
+
+12. tuples can be used as dictionary keys
+mytuple = ("Max",)
+mydict[mytuple] = 2
+print(mydict)

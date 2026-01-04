@@ -1,0 +1,61 @@
+Strings are immutable sequences of characters.
+
+1. Concatenation: Combining two strings using the '+' operator.
+2. Strip: Removing leading and trailing whitespace using the 'strip()' method.
+my_str = "  Hello, World!  "
+print(my_str.strip())
+
+# this above doesn't change the original string, you can only reassign the values
+
+3. upper and lower case conversion using the 'upper()' and 'lower()' methods.
+my_str = "Hello, World!"
+print(my_str.upper())
+print(my_str.lower())
+
+4. startswith and endswith methods to check if a string starts or ends with a specific substring.
+my_str = "Hello, World!"
+print(my_str.startswith("Hello"))
+print(my_str.endswith("World!"))
+
+6. find method to search for a substring within a string.(returns -1  if not found)
+my_str = "Hello, World!"
+print(my_str.find("World"))
+
+7. count method to count the number of occurrences of a substring within a string.
+my_str = "Hello, World!"
+print(my_str.count("o"))
+
+8. replace method to replace a substring within a string.
+my_str = "Hello, World!"
+print(my_str.replace("World", "Python"))
+
+9. split method to split a string into a list of substrings based on a delimiter.
+my_str = "Hello, World!"
+print(my_str.split("o"))
+
+10. join method to join a list of strings into a single string using a delimiter.
+my_list = my_str.split()
+print(my_list)
+new_str = "".join(my_list)
+print(new_str)
+
+Note: Strings are immutable so concatenation is inefficient for large strings, use join in these situations(no new strings are created)
+from timeit import default_timer as timer
+
+my_list = ["a"] * 1000000
+
+start = timer()
+new_str = ""
+for i in my_list:
+    new_str += i
+stop = timer()
+print(stop - start)
+
+start = timer()
+new_str = "".join(my_list)
+stop = timer()
+print(stop - start)
+
+11. use f strings to format strings
+my_str = "Hello, World!"
+print(f"{my_str} is a string")

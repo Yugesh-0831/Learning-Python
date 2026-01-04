@@ -1,0 +1,9 @@
+1. Tuple is just a list just immutable (cannot be altered)
+
+mytuple = ("Max",)
+print(mytuple)
+print(type(mytuple))
+
+2. tuples can be used as dictionary keys
+mydict = {mytuple: "value"}
+print(mydict)

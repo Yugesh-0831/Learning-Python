@@ -1,0 +1,139 @@
+ENGINEERING MASTERY ROADMAP: Q1 2026
+Author: Perplexity AI
+Assignee: Lead Backend Engineer (You)
+Objective: Master Python Internals, Concurrency, and Metaprogramming through "First Principles" implementation.
+
+PROJECT 1: The "Glitch" Trading Engine (Concurrency)
+Level: Beginner/Intermediate (Core Threading)
+Status: AWAITING IMPLEMENTATION
+
+1. Business Context
+Our fintech client requires a high-frequency trading engine prototype. The current MVP is losing money due to race conditions during rapid concurrent transfers. The system freezes (deadlocks) when scaling to multiple users. We need a thread-safe, non-blocking transaction engine.
+
+2. Functional Requirements
+FR-01 (The Ledger): System must maintain a ledger of 100 User Wallets with an initial balance of $1,000 each.
+
+FR-02 (High Load): The engine must support 1,000 concurrent transaction requests per second initiated by 50 independent "Trader" threads.
+
+FR-03 (Consistency): The sum of all wallets must be exactly $100,000 at any millisecond. No money can be created or destroyed.
+
+FR-04 (Performance): A global lock (locking the whole market) is unacceptable due to latency. Transactions between User A and B must not block User C and D.
+
+FR-05 (Resilience): The system must automatically detect and prevent Deadlocks (circular dependencies).
+
+3. Technical Constraints & Topics
+Language: Pure Python (No external DBs like Postgres/Redis).
+
+Core Module: threading, concurrent.futures.
+
+Forbidden: asyncio (This is a threading exercise).
+
+Key Concepts to Study:
+
+Race Conditions (Critical Section).
+
+Mutex Locks (threading.Lock).
+
+Deadlock Prevention (Wait-Die scheme or Resource Ordering).
+
+Context Managers (with lock:).
+
+4. Implementation Stages
+Stage 1 (Proof of Failure): Implement the Market class with no locks. Run the stress test. Log the "Missing Money."
+
+Stage 2 (The Global Lock): Wrap every transfer() in a single Lock. Measure the massive drop in requests-per-second (RPS).
+
+Stage 3 (Fine-Grained Locking): Give every User a Lock. Implement the "Lock Ordering Protocol" (Always lock smaller ID first) to fix deadlocks.
+
+PROJECT 2: The "Ghost" Validation Library (Metaprogramming)
+Level: Intermediate (Internals & Descriptors)
+Status: PLANNED
+
+1. Business Context
+Our developers are making too many typo errors in SQL queries and data validation. We cannot use Django Models or Pydantic. We need a custom, lightweight "Object-Relational Mapper" (ORM) library that enforces strict typing at the class definition level and auto-generates SQL.
+
+2. Functional Requirements
+FR-01 (Declarative Syntax): Developers must define models like this:
+
+python
+class User(Model):
+    name = StringField(max_length=50)
+    age = IntField(min_value=18)
+FR-02 (Auto-Validation): Setting user.age = 12 must raise a ValidationError immediately upon assignment (not when calling .save()).
+
+FR-03 (SQL Generation): The class must auto-generate its own schema creation SQL (CREATE TABLE user...) based on the fields defined.
+
+FR-04 (Query Building): Writing User.filter(age__gt=20) must return a valid SQL string "SELECT * FROM user WHERE age > 20".
+
+3. Technical Constraints & Topics
+Language: Pure Python.
+
+Core Concepts: descriptors, metaclasses, __slots__.
+
+Forbidden: Importing pydantic or dataclasses.
+
+Key Concepts to Study:
+
+Descriptors: The __get__ and __set__ protocol (The magic behind user.age = 10).
+
+Metaclasses: The __new__ method (intercepting class creation to read attributes).
+
+__set_name__: Automatically capturing the variable name ("age") inside the descriptor.
+
+4. Implementation Stages
+Stage 1 (The Field): Create IntField using the Descriptor protocol. Make it reject strings.
+
+Stage 2 (The Model): Create a ModelMeta metaclass. Have it "scan" the child class for any attribute that is a Field and store them in a _fields registry.
+
+Stage 3 (The SQL): Implement a .save() method on the base Model class that dynamically constructs an INSERT statement using the _fields registry.
+
+PROJECT 3: The "Flash" Async Server (Advanced Concurrency)
+Level: Advanced (Systems Programming)
+Status: PLANNED
+
+1. Business Context
+We are building a specialized file server for large media assets. Standard HTTP servers (Gunicorn/Uvicorn) are too heavy. We need a bare-metal TCP server that can handle 10,000 idle connections with minimal RAM usage.
+
+2. Functional Requirements
+FR-01 (Event Loop): The server must run on a Single Thread. It cannot use threads for concurrency. It must use an Event Loop (Reactor Pattern).
+
+FR-02 (Non-Blocking I/O): Reading from a socket must never block. If data isn't ready, the loop must switch to another task.
+
+FR-03 (Zero-Copy): When serving a 1GB file, the server RAM usage must not exceed 50MB.
+
+FR-04 (Protocol): It must parse a basic HTTP GET request (GET /video.mp4 HTTP/1.1) and return the correct binary stream with headers.
+
+3. Technical Constraints & Topics
+Language: Pure Python (Standard Library only).
+
+Core Concepts: selectors (wrapper around epoll/kqueue), generators, bytes.
+
+Forbidden: asyncio (You are building a primitive asyncio), socketserver.
+
+Key Concepts to Study:
+
+File Descriptors: Everything in Linux is a file.
+
+Multiplexing: The select and poll system calls.
+
+Generators: Using yield to stream data chunk-by-chunk.
+
+Blocking vs Non-Blocking Sockets: sock.setblocking(False).
+
+4. Implementation Stages
+Stage 1 (The Loop): Use Python's selectors module to listen to a socket. Register a callback function for "Read Ready".
+
+Stage 2 (The State Machine): Because you can't "wait" for a full request, build a buffer state machine that accumulates bytes until it sees \r\n\r\n (End of Header).
+
+Stage 3 (The Stream): Implement a file reader generator that yields 4KB chunks. Integrate this into the event loop so it only writes when the socket is "Write Ready".
+
+Execution Protocol
+Start with Project 1 (Trading Engine).
+
+Create a folder trading_engine.
+
+Write spec.txt copy-pasting the "Functional Requirements" above.
+
+Do not watch a video. If you don't know what a Mutex is, read the Wikipedia definition or Python Docs, then try to use threading.Lock.
+
+Code.

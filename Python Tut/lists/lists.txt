@@ -1,0 +1,80 @@
+1. Initializing a list
+mylist = ["apple", "banana", "cherry"]
+
+2. there is a list function as well
+mylist = list()
+
+3. python allows for multi data type in list
+mylist3 = [5, True, "banana", 5]
+
+4. negative indexes are allowed it prints from the back
+item = mylist[-1]
+print(item)
+
+5. append to append a value
+mylist.append("orange")
+print(mylist)
+
+6. insert to insert at a specific index
+mylist.insert(1, "grape")
+print(mylist)
+
+7. pop to remove and get the last element
+last_item = mylist.pop()
+print(last_item)
+
+8. remove function to remove a specific element
+mylist.remove("banana")
+print(mylist)
+
+9. clear function to remove all elements
+mylist.clear()
+print(mylist)
+
+10. reverse function to reverse the list
+mylist.reverse()
+print(mylist)
+
+11. sort function to sort the list
+mylist.sort()
+print(mylist)
+
+12. sorted function to sort the list without modifying the original list
+sorted_list = sorted(mylist)
+print(mylist)
+print(sorted_list)
+
+13. add to lists by + operator
+mylist = ["apple", "cherry", "banana"]
+
+mylist2 = [0] * 5
+
+mylist3 = mylist + mylist2
+print(mylist3)
+
+14. slicing to get a subset of the list (ending index is exclusive)
+mylist4 = mylist[1:3]
+print(mylist4)
+
+15. reverse a list using slicing
+mylist5 = mylist[::-1]
+print(mylist5)
+
+16. list comprehension (for loop inside brackets | nice trick! |)
+mylist6 = [x+x for x in mylist]
+print(mylist6)
+print(mylist)
+
+17. copy a list using copy function
+mylist7 = mylist.copy()
+print(mylist7)
+print(mylist)
+
+18. copy a list using slicing
+mylist8 = mylist[:]
+print(mylist8)
+print(mylist)
+
+19. del keyword to delete an element
+del mylist[0]
+print(mylist)

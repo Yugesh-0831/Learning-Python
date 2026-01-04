@@ -1,0 +1,10 @@
+# small one liner functions
+# starts with lambda take param and colon action
+
+add10 = lambda x: x + 10
+print(add10(1))
+
+mult = lambda x, y: x * y
+print(mult(2, 3))
+
+# can be used to pass functions as variable
